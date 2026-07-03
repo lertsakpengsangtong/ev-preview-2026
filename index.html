@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta property="og:title" content="East Venice — Private Preview">
+<meta name="description" content="Private preview. Access by invitation only.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>East Venice — Investor Dashboard (v126 · TH/EN)</title>
+
+<style>
+  :root{ color-scheme: light;
+    --green:#1F3A2D; --green2:#1F6B3A; --cream:#F2EDE4; --walnut:#6B4A2F;
+    --brass:#B08D4F; --brass2:#C9A24A; --ink:#23261F; --muted:#6b6f63;
+    --card:#ffffff; --line:#e3ddd0; --bad:#9C2B1B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI','Segoe UI',Tahoma,'Sarabun',sans-serif;color:var(--ink);background:var(--cream);line-height:1.55}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  section{padding:38px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:1.5rem;color:var(--green);margin-bottom:6px;font-weight:600}
+  .lead{color:var(--muted);margin-bottom:20px;max-width:800px}
+  .src{display:inline-flex;align-items:center;gap:8px;background:#faf6ee;border:1px solid var(--brass2);border-radius:20px;padding:6px 14px;font-size:.76rem;color:var(--walnut);margin-bottom:16px}
+  .src:before{content:"✔";color:var(--brass);font-weight:800}
+  .hero{background:linear-gradient(150deg,var(--green) 0%,#16281e 100%);color:#f3efe6;padding:44px 0 40px}
+  .eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--brass2);margin-bottom:12px}
+  .hero h1{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:2.5rem;font-weight:600;line-height:1.1;margin-bottom:8px}
+  .hero .tag{color:#cdd4c4;font-size:1.02rem;max-width:680px;margin-bottom:22px;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif}
+  .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .langtoggle{display:inline-flex;background:rgba(255,255,255,.12);border:1px solid rgba(201,162,74,.5);border-radius:22px;padding:3px}
+  .langtoggle button{border:0;background:transparent;color:#cdd4c4;padding:6px 16px;border-radius:18px;cursor:pointer;font-weight:700;font-size:.85rem}
+  .langtoggle button.active{background:var(--brass2);color:#16281e}
+  .ask{display:inline-flex;gap:24px;flex-wrap:wrap;background:rgba(255,255,255,.07);border:1px solid rgba(201,162,74,.4);border-radius:14px;padding:14px 22px;margin-bottom:26px}
+  .ask div{font-size:.8rem;color:#bcc3b4}
+  .ask b{display:block;font-size:1.25rem;color:#fff;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;margin-top:2px}
+  .hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .hstat{background:rgba(255,255,255,.06);border-radius:12px;padding:16px}
+  .hstat .n{font-size:1.9rem;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;color:#fff}
+  .hstat .l{font-size:.76rem;color:var(--brass2);text-transform:uppercase;letter-spacing:.05em}
+  .toggle{display:inline-flex;background:#e7e0d2;border-radius:30px;padding:5px;margin-bottom:8px;flex-wrap:wrap}
+  .toggle button{border:0;background:transparent;padding:9px 18px;border-radius:24px;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--muted)}
+  .toggle button.active{background:var(--green);color:#fff}
+  .desc{font-size:.8rem;color:var(--muted);margin:6px 2px 16px}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .kpi .l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .kpi .n{font-size:1.6rem;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;color:var(--green);margin-top:4px}
+  .kpi .n.neg{color:var(--bad)}
+  .perinv{background:var(--green);color:#f0ede4;border-radius:12px;padding:13px 18px;margin-top:14px;font-size:.94rem}
+  .perinv b{color:var(--brass2);font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .sc{border-radius:14px;padding:20px;border:1px solid var(--line);background:var(--card)}
+  .sc.mid{border:2px solid var(--brass2);box-shadow:0 6px 22px rgba(176,141,79,.16)}
+  .sc h3{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:1.1rem;margin-bottom:2px}
+  .sc .role{font-size:.75rem;color:var(--muted);margin-bottom:12px}
+  .sc .row{display:flex;justify-content:space-between;padding:6px 0;border-top:1px dashed var(--line);font-size:.9rem}
+  .sc .row b{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif}
+  .badge{display:inline-block;font-size:.68rem;padding:3px 9px;border-radius:20px;font-weight:700;margin-bottom:9px}
+  .b-good{background:#e4efe2;color:#1F6B3A} .b-mid{background:#fbf0d8;color:#B98900} .b-bad{background:#f6e2dd;color:#9C2B1B}
+  .bench{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px;background:#faf6ee;border:1px dashed var(--brass);border-radius:12px;padding:14px 20px}
+  .bench .bl{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);font-weight:700;display:block}
+  .bench .bnums{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:1.1rem;color:var(--walnut)}
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:10px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .ph{padding:18px;background:var(--card)}
+  .ph:nth-child(2){background:#faf6ee;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .ph .t{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);font-weight:700}
+  .ph h4{font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:1.02rem;color:var(--green);margin:4px 0 7px}
+  .ph p{font-size:.85rem;color:var(--muted)}
+  .ph .cash{margin-top:9px;font-size:.88rem;font-weight:700;color:var(--green2)}
+  .pull{background:var(--green);color:#f0ede4;border-radius:12px;padding:16px 20px;margin-top:16px;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:1.05rem}
+  .two{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line)}
+  th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .chartbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .chartwrap{position:relative;height:240px}
+  .chartwrap.tall{height:300px}
+  ul.clean{list-style:none} ul.clean li{padding:8px 0 8px 24px;position:relative;border-bottom:1px solid var(--line);font-size:.88rem}
+  ul.clean li:before{content:"";position:absolute;left:4px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--brass)}
+  .risk td:first-child{font-weight:600;color:var(--green);width:36%}
+  .govtbl{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .govtbl th{background:var(--green);color:#f0ede4;font-size:.78rem;text-align:center;vertical-align:top;padding:11px 9px;text-transform:none;letter-spacing:0}
+  .govtbl th span{color:var(--brass2);font-weight:400;font-size:.7rem}
+  .govtbl th.mid{background:#16281e}
+  .govtbl td{font-size:.84rem;vertical-align:top;text-align:center}
+  .govtbl td.dim{text-align:left;font-weight:700;color:var(--green);background:#faf6ee}
+  .govtbl td.mid{background:#faf6ee}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:10px;counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px;position:relative}
+  .step:before{counter-increment:s;content:counter(s);position:absolute;top:-12px;left:16px;width:26px;height:26px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Georgia,'Sukhumvit Set','SukhumvitSet-Text','Leelawadee UI',serif;font-size:.9rem}
+  .step h4{font-size:.93rem;color:var(--green);margin:6px 0 4px}
+  .step p{font-size:.8rem;color:var(--muted)}
+  .foot{background:var(--green);color:#cdd4c4;padding:26px 0;font-size:.82rem}
+  .foot b{color:#fff}
+  .note{font-size:.75rem;color:var(--muted);margin-top:11px;font-style:italic}
+  input[name=lang],input[name=scn]{position:absolute;left:-9999px}
+  .len{display:none}
+  #langEN:checked ~ * .lth{display:none}
+  #langEN:checked ~ * .len{display:inline}
+  .langtoggle label{color:#cdd4c4;padding:6px 16px;border-radius:18px;cursor:pointer;font-weight:700;font-size:.85rem}
+  #langTH:checked ~ * #lblTH,#langEN:checked ~ * #lblEN{background:var(--brass2);color:#16281e}
+  .toggle label{padding:9px 18px;border-radius:24px;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--muted)}
+  #scnC:checked ~ * #lblC,#scnR:checked ~ * #lblR,#scnA:checked ~ * #lblA{background:var(--green);color:#fff}
+  .scnpane{display:none}
+  #scnC:checked ~ * .pane-c,#scnR:checked ~ * .pane-r,#scnA:checked ~ * .pane-a{display:block}
+  .bars{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 12px}
+  .brow{display:flex;align-items:center;gap:10px;margin:6px 0}
+  .blbl{flex:0 0 168px;font-size:.78rem;text-align:right}
+  .btrack{flex:1;background:#f3edde;border-radius:4px;height:15px;overflow:hidden}
+  .bfill{height:100%;border-radius:4px}
+  .bval{flex:0 0 52px;font-weight:700;font-size:.78rem}
+  .bcum{color:#B08D4F}
+  .cfh{color:var(--muted);font-weight:400;margin-bottom:2px}
+  @media(max-width:640px){.blbl{flex-basis:110px}}
+
+  .stamp{display:inline-block;border:2px solid var(--brass);color:var(--walnut);background:#fbf7ee;border-radius:10px;padding:7px 14px;font-size:.74rem;font-weight:800;letter-spacing:.4px;transform:rotate(-1.5deg);margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .exp{margin-top:12px;background:#faf8f1;border:1px solid var(--brass2);border-radius:10px;padding:4px 14px}
+  .exp summary{cursor:pointer;font-weight:700;font-size:.82rem;color:#1F6B3A;padding:8px 0}
+  .exp .xp{font-size:.8rem;line-height:1.75;color:#3d4038;padding:2px 0 12px}
+  @media(max-width:820px){.hstats,.kpis,.cards3,.phases,.steps{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.hero h1{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<input type="radio" id="langTH" name="lang" checked><input type="radio" id="langEN" name="lang"><input type="radio" id="scnC" name="scn"><input type="radio" id="scnR" name="scn" checked><input type="radio" id="scnA" name="scn">
+
+<div class="hero"><div class="wrap">
+  <div class="topbar">
+    <div class="eyebrow"><span class="lth">Private Investment Opportunity · โอกาสการลงทุน</span><span class="len">Private Investment Opportunity</span></div>
+    <div class="langtoggle"><label for="langTH" id="lblTH">ไทย</label><label for="langEN" id="lblEN">EN</label></div>
+  </div>
+  <h1>East Venice</h1>
+  <div class="tag"><span class="lth">สโมสรเทนนิส &amp; พิคเคิลบอลริมแม่น้ำเจ้าพระยาระดับไอคอนของไทย</span><span class="len">Thailand's iconic riverside tennis &amp; pickleball club — on the Chao Phraya</span></div>
+  <div class="ask">
+    <div><span><span class="lth">เม็ดเงินที่ระดม</span><span class="len">The ask</span></span><b>฿40M</b></div>
+    <div><span><span class="lth">นักลงทุน</span><span class="len">Investors</span></span><b>4 × ฿10M</b></div>
+    <div><span><span class="lth">โครงสร้าง</span><span class="len">Structure</span></span><b>Preferred 33%</b></div>
+    <div><span><span class="lth">ลำดับการรับเงิน</span><span class="len">Priority</span></span><b><span class="lth">ได้คืนก่อนใคร</span><span class="len">Paid first</span></b></div>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><div class="n">20.9%</div><div class="l">IRR (Realistic)</div></div>
+    <div class="hstat"><div class="n">2.16x</div><div class="l">MOIC</div></div>
+    <div class="hstat"><div class="n">~2.8 yr</div><div class="l"><span class="lth">คืนทุน · Payback</span><span class="len">Payback</span></div></div>
+    <div class="hstat"><div class="n">10 yr</div><div class="l"><span class="lth">ถือครอง · ไม่คิด exit</span><span class="len">Hold · no exit assumed</span></div></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="lth">โอกาส — 3 ท (ที่ · ทีม · ทุน)</span><span class="len">The Opportunity — Land · Team · Capital</span></h2>
+  <p class="lead"><span class="lth">สโมสรระดับนี้ต้องมี 3 อย่าง — เราล็อกไปแล้ว 2 เหลือ &quot;ทุน&quot; ให้คุณเข้ามาเป็นชิ้นสุดท้าย</span><span class="len">A club of this calibre needs three things. Two are already secured — the last piece is the capital, from you.</span></p>
+  <div class="phases">
+    <div class="ph"><div class="t"><span class="lth">ที่ · Land</span><span class="len">Land</span></div><h4><span class="lth">ที่ริมน้ำหนึ่งเดียว</span><span class="len">The only riverside site of its kind</span></h4><p><span class="lth">ทำเลริมเจ้าพระยาที่หาไม่ได้อีก · สัญญาเช่าตกลงครบทุกเงื่อนไข (เซ็นก่อน closing) · สร้างฟรี 4 เดือน → เปิดเร็วขึ้น ~12 เดือน</span><span class="len">Irreplaceable Chao Phraya frontage · lease agreed in final form (signing before closing) · 4 rent-free build months → ~12 months faster to revenue</span></p></div>
+    <div class="ph"><div class="t"><span class="lth">ทีม · Team</span><span class="len">Team</span></div><h4><span class="lth">ทีมมือโปร 4 คน</span><span class="len">A team of four proven professionals</span></h4><p><span class="lth">ทีมมืออาชีพ 4 คน ที่หาดีลเองและลงแรงไปแล้ว · เงินเดือนแปลงเป็น sweat equity ที่ริบได้<br><b>Pete (Lertsak)</b> — Land &amp; Tech · หัวหน้าทีม · ทุน ICO คาร์บอนเครดิต ฿300M ให้บริษัทใน SET ผ่าน SEC · ผู้ได้ที่ริมน้ำมา<br><b>Maya</b> — Tennis Club GM · เคยบริหารสโมสรเทนนิสชั้นนำที่ occupancy ~99%<br><b>Jerry</b> — Brand &amp; Media · co-founder JUSTgIT ~2M subscribers · 400M+ views<br><b>Lung</b> — Construction · เจ้าของ Spectrum ผู้รับเหมา turnkey ประสบการณ์โครงการขนาดใหญ่ (บ้าน · โชว์รูม BMW/Ford · ออฟฟิศ DLA Piper)</span><span class="len">Four professionals who sourced the deal and already put in the work — salaries converted to forfeitable sweat equity<br><b>Pete (Lertsak)</b> — Land &amp; Tech · team lead · raised a ฿300M carbon-credit ICO for a SET-listed company through the SEC · secured the riverside site<br><b>Maya</b> — Tennis Club GM · ran a leading tennis club at ~99% occupancy<br><b>Jerry</b> — Brand &amp; Media · co-founder of JUSTgIT, ~2M subscribers · 400M+ views<br><b>Lung</b> — Construction · owns turnkey contractor Spectrum — large-scale project experience (homes · BMW/Ford showrooms · DLA Piper office)</span></p></div>
+    <div class="ph"><div class="t"><span class="lth">ทุน · Capital</span><span class="len">Capital</span></div><h4><span class="lth">ชิ้นสุดท้าย = 40M</span><span class="len">The last piece = 40M</span></h4><p class="cash"><span class="lth">4 นักลงทุน คนละ ฿10M — ก้าวสุดท้ายที่ความเสี่ยงยากๆ ผ่านไปแล้ว</span><span class="len">4 investors × ฿10M — the final step, with the hardest risks already behind us</span></p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="lth">ผลตอบแทน — เลือกดูตามฉากทัศน์</span><span class="len">Your Returns — toggle the scenario</span></h2>
+  <p class="lead"><span class="lth">เราโชว์ทั้ง worst / normal / best พร้อมกัน (Court S3 · Pack 3 · Preferred) สลับได้ด้านล่าง</span><span class="len">We show worst / normal / best together (Court S3 · Pack 3 · Preferred). Toggle below.</span></p>
+  <div class="toggle">
+<label for="scnC" id="lblC"><span class="lth">Conservative · อนุรักษ์</span><span class="len">Conservative</span></label>
+<label for="scnR" id="lblR"><span class="lth">Realistic · ตามจริง</span><span class="len">Realistic</span></label>
+<label for="scnA" id="lblA"><span class="lth">Aggressive · เชิงรุก</span><span class="len">Aggressive</span></label>
+</div>
+<div class="scnpane pane-c">
+  <div class="desc"><span class="lth">Mode Conservative + รายได้เฉพาะคอร์ต (Court Only) — ฉากแย่สุด</span><span class="len">Conservative mode + court-only revenue — the stress case</span></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">NPV (M฿)</div><div class="n neg">−8.0</div></div>
+    <div class="kpi"><div class="l"><span class="lth">IRR / ปี</span><span class="len">IRR / yr</span></div><div class="n">4.3%</div></div>
+    <div class="kpi"><div class="l">MOIC</div><div class="n">1.20x</div></div>
+    <div class="kpi"><div class="l">Payback</div><div class="n">6.0 yr</div></div>
+    <div class="kpi"><div class="l"><span class="lth">เงินคืนรวม 10 ปี</span><span class="len">10-yr cash back</span></div><div class="n">฿48M</div></div>
+  </div>
+  <div class="perinv"><span class="lth">ต่อนักลงทุน 1 คน (4 คน × ฿10M): ลง</span><span class="len">Per investor (4 × ฿10M): invest</span> <b>฿10M</b> → <span class="lth">คืน</span><span class="len">receive</span> <b>~฿12.0M</b> · MOIC <b>1.20x</b> · IRR <b>4.3%</b></div>
+  <p class="note"><span class="lth">แม้ฉากนี้ ทุนยังคืนครบ (MOIC 1.20x) เพราะนักลงทุนอยู่ลำดับแรก</span><span class="len">Even here your capital comes back (1.20x) — you are first in line</span></p>
+</div>
+<div class="scnpane pane-r">
+  <div class="desc"><span class="lth">Mode Realistic + รายได้ครบทุกสาย (Both) — ฉากปกติ (แนะนำ)</span><span class="len">Realistic mode + all revenue streams — the base case (recommended)</span></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">NPV (M฿)</div><div class="n">+17.2</div></div>
+    <div class="kpi"><div class="l"><span class="lth">IRR / ปี</span><span class="len">IRR / yr</span></div><div class="n">20.9%</div></div>
+    <div class="kpi"><div class="l">MOIC</div><div class="n">2.16x</div></div>
+    <div class="kpi"><div class="l">Payback</div><div class="n">2.8 yr</div></div>
+    <div class="kpi"><div class="l"><span class="lth">เงินคืนรวม 10 ปี</span><span class="len">10-yr cash back</span></div><div class="n">฿87M</div></div>
+  </div>
+  <div class="perinv"><span class="lth">ต่อนักลงทุน 1 คน (4 คน × ฿10M): ลง</span><span class="len">Per investor (4 × ฿10M): invest</span> <b>฿10M</b> → <span class="lth">คืน</span><span class="len">receive</span> <b>~฿21.6M</b> · MOIC <b>2.16x</b> · IRR <b>20.9%</b></div>
+  <p class="note"><span class="lth">ฐานหลักที่ใช้ในการเสนอ · occupancy 90%→70% · เปิดคอร์ต ธ.ค. 2026</span><span class="len">The basis of the offer · occupancy 90%→70% · courts open Dec 2026</span></p>
+</div>
+<div class="scnpane pane-a">
+  <div class="desc"><span class="lth">Mode Aggressive + Both — ตลาดคงระดับปัจจุบัน (~90%)</span><span class="len">Aggressive mode + all streams — the market simply stays where it is (~90%)</span></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">NPV (M฿)</div><div class="n">+31.7</div></div>
+    <div class="kpi"><div class="l"><span class="lth">IRR / ปี</span><span class="len">IRR / yr</span></div><div class="n">28.6%</div></div>
+    <div class="kpi"><div class="l">MOIC</div><div class="n">2.76x</div></div>
+    <div class="kpi"><div class="l">Payback</div><div class="n">2.3 yr</div></div>
+    <div class="kpi"><div class="l"><span class="lth">เงินคืนรวม 10 ปี</span><span class="len">10-yr cash back</span></div><div class="n">฿110M</div></div>
+  </div>
+  <div class="perinv"><span class="lth">ต่อนักลงทุน 1 คน (4 คน × ฿10M): ลง</span><span class="len">Per investor (4 × ฿10M): invest</span> <b>฿10M</b> → <span class="lth">คืน</span><span class="len">receive</span> <b>~฿27.6M</b> · MOIC <b>2.76x</b> · IRR <b>28.6%</b></div>
+  <p class="note"><span class="lth">Upside หากตลาดพรีเมียมยังแข็งแรงเหมือนวันนี้</span><span class="len">The upside if the premium market stays as strong as today</span></p>
+</div>
+</section>
+
+<section>
+  <h2><span class="lth">สามฉากทัศน์เทียบกัน</span><span class="len">Worst · Normal · Best — side by side</span></h2>
+  <p class="lead"><span class="lth">Pack 3 · ต่อนักลงทุน ฿10M · Capital required ต่อฉาก 35.4 / 33.4 / 32.1M — ask 40M ครอบทุกกรณี</span><span class="len">Pack 3 · per ฿10M investor · capital required 35.4 / 33.4 / 32.1M per case — the 40M ask covers all of them</span></p>
+  <div class="cards3">
+    <div class="sc"><span class="badge b-bad"><span class="lth">Worst · แย่สุด</span><span class="len">Worst case</span></span><h3>Conservative</h3><div class="role"><span class="lth">เฉพาะรายได้คอร์ต · occupancy ต่ำ</span><span class="len">Court-only revenue · low occupancy</span></div>
+      <div class="row"><span>IRR</span><b>4.3%</b></div><div class="row"><span>MOIC</span><b>1.20x</b></div><div class="row"><span>Payback</span><b>~6.0 yr</b></div>
+      <div class="row"><span><span class="lth">ต่อคน ฿10M →</span><span class="len">Per ฿10M →</span></span><b>~฿12.0M</b></div></div>
+    <div class="sc mid"><span class="badge b-good"><span class="lth">Normal · ปกติ ★</span><span class="len">Base case ★</span></span><h3>Realistic</h3><div class="role"><span class="lth">รายได้ครบทุกสาย · occ 90%→70%</span><span class="len">All revenue streams · occ 90%→70%</span></div>
+      <div class="row"><span>IRR</span><b>20.9%</b></div><div class="row"><span>MOIC</span><b>2.16x</b></div><div class="row"><span>Payback</span><b>~2.8 yr</b></div>
+      <div class="row"><span><span class="lth">ต่อคน ฿10M →</span><span class="len">Per ฿10M →</span></span><b>~฿21.6M</b></div></div>
+    <div class="sc"><span class="badge b-mid"><span class="lth">Best · ดีสุด</span><span class="len">Best case</span></span><h3>Aggressive</h3><div class="role"><span class="lth">ตลาดคงระดับปัจจุบัน (~90%)</span><span class="len">Market stays where it is (~90%)</span></div>
+      <div class="row"><span>IRR</span><b>28.6%</b></div><div class="row"><span>MOIC</span><b>2.76x</b></div><div class="row"><span>Payback</span><b>~2.3 yr</b></div>
+      <div class="row"><span><span class="lth">ต่อคน ฿10M →</span><span class="len">Per ฿10M →</span></span><b>~฿27.6M</b></div></div>
+  </div>
+  <div class="bench">
+    <div><span class="bl"><span class="lth">เกณฑ์อุตสาหกรรม · Industry benchmark</span><span class="len">Industry benchmark</span></span><span><span class="lth">กองทุนพัฒนาอสังหาฯ/leisure เชิงรุก (Preqin / Cambridge Associates)</span><span class="len">Opportunistic real-estate / leisure development funds (Preqin / Cambridge Associates)</span></span></div>
+    <div class="bnums">IRR ~15–18% (mean 17.8%) · MOIC 2.0–2.5x</div>
+  </div>
+  <p class="note"><span class="lth">แม้ฉากแย่สุด ทุนยังคืนครบ (1.20x) เพราะนักลงทุนอยู่ลำดับแรก · Realistic (20.9% / 2.16x) สูงกว่าค่าเฉลี่ยกลุ่ม development · ตัวเลขเป็นประมาณการจากโมเดล v126 ไม่ใช่การรับประกัน</span><span class="len">Even the worst case returns capital (1.20x) because the investors are first in line · Realistic (20.9% / 2.16x) sits at/above the development-fund average · projections from the v126 model, not guarantees</span></p>
+</section>
+
+<section>
+  <h2><span class="lth">ดีลทำงานยังไง — Preferred</span><span class="len">How the Deal Works — Preferred</span></h2>
+  <p class="lead"><span class="lth">แทนหุ้น 40% ธรรมดา คุณได้ Preferred Share 33% ที่ได้เงินคืนก่อนใคร — Priority beats percentage</span><span class="len">Instead of a plain 40% stake, you hold a Preferred 33% that is paid first — priority beats percentage</span></p>
+  <div class="phases">
+    <div class="ph"><div class="t">Phase 1</div><h4><span class="lth">สร้าง (ส.ค.–พ.ย. 2026)</span><span class="len">Build (Aug–Nov 2026)</span></h4><p><span class="lth">ทุนเรียกเต็มก้อน 40M ตั้งแต่ต้น เบิกจ่าย 6 งวดแบบ pay-to-start — แต่ละงวด gate ด้วยงวดก่อนหน้าที่ตรวจรับแล้ว (deemed approval 10 วันทำการ)</span><span class="len">Full 40M committed at close, released in 6 pay-to-start tranches — each gated on independent certification of the prior stage (10-business-day deemed approval)</span></p><div class="cash">Cash: —</div></div>
+    <div class="ph"><div class="t">Phase 2</div><h4><span class="lth">เปิด → คืนทุน (ธ.ค. 2026 → ~Y2.8)</span><span class="len">Open → Capital returned (Dec 2026 → ~Y2.8)</span></h4><p><span class="lth">เปิดคอร์ต+ห้องอาบน้ำ ธ.ค. 2026 · กระแสเงิน 100% เข้านักลงทุนก่อน จนคืนครบ 40M — ทีมยังไม่ได้เลย</span><span class="len">Courts + showers open Dec 2026 · 100% of cash goes to investors until the full 40M is repaid — the team takes nothing</span></p><div class="cash"><span class="lth">Cash: 100% → คุณ</span><span class="len">Cash: 100% → you</span></div></div>
+    <div class="ph"><div class="t">Phase 3</div><h4><span class="lth">หลังคืนทุน → Y10</span><span class="len">After capital returned → Y10</span></h4><p><span class="lth">แบ่ง 1/3 นักลงทุน : 2/3 ทีม ตลอดที่เหลือ</span><span class="len">1/3 investors : 2/3 Team for the rest of the hold</span></p><div class="cash">Cash: 1/3 : 2/3</div></div>
+  </div>
+  <div class="pull"><span class="lth">&quot;Priority beats percentage — Preferred 33% ที่ได้เงินก่อน คุ้มกว่า 40% ที่ต้องต่อคิว: คืนเร็วกว่า ผลตอบแทนสูงกว่า downside ปลอดภัยกว่า&quot;</span><span class="len">&quot;Priority beats percentage — a preferred 33% that pays you first is worth more than a flat 40% that waits in line: faster payback, better return, protected downside.&quot;</span></div>
+</section>
+
+<section>
+  <h2><span class="lth">กระแสเงินสดนักลงทุน 10 ปี</span><span class="len">Investor Cash Flow — 10 years</span></h2>
+  <p class="lead"><span class="lth">แท่ง = เงินสดรายปี · เส้น = ยอดสะสม (ตัดศูนย์ = คืนทุน ~ปีที่ 2.8) · Pack 3 Realistic รวม 4 นักลงทุน · หาร 4 = ต่อคน</span><span class="len">Bars = annual cash · line = cumulative (crosses zero ≈ payback Y2.8) · Pack 3 Realistic, all four investors · divide by 4 for one investor</span></p>
+  <div class="bars"><div style="display:flex;gap:18px;align-items:center;font-size:.78rem;margin-bottom:6px"><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:10px;background:#1F6B3A;border-radius:2px;display:inline-block"></span><span class="lth">เงินสดรายปี (M฿)</span><span class="len">Annual cash flow (M฿)</span></span><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:18px;height:3px;background:#B08D4F;display:inline-block;border-radius:2px"></span><span class="lth">ยอดสะสม (M฿)</span><span class="len">Cumulative (M฿)</span></span></div><svg viewBox="0 0 730 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:inherit"><line x1="52" y1="264.7" x2="722" y2="264.7" stroke="#eee7d8" stroke-width="1"/><text x="46" y="268.2" text-anchor="end" font-size="10" fill="#8a8574">-40M</text><line x1="52" y1="211.3" x2="722" y2="211.3" stroke="#eee7d8" stroke-width="1"/><text x="46" y="214.8" text-anchor="end" font-size="10" fill="#8a8574">-20M</text><line x1="52" y1="158.0" x2="722" y2="158.0" stroke="#c9bfa8" stroke-width="1.6"/><text x="46" y="161.5" text-anchor="end" font-size="10" fill="#8a8574">0M</text><line x1="52" y1="104.7" x2="722" y2="104.7" stroke="#eee7d8" stroke-width="1"/><text x="46" y="108.2" text-anchor="end" font-size="10" fill="#8a8574">20M</text><line x1="52" y1="51.3" x2="722" y2="51.3" stroke="#eee7d8" stroke-width="1"/><text x="46" y="54.8" text-anchor="end" font-size="10" fill="#8a8574">40M</text><rect x="65.4" y="158.0" width="34" height="106.7" rx="3" fill="#9C2B1B"/><text x="82.4" y="277.7" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9C2B1B">−40</text><text x="82.4" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y0</text><text x="143.1" y="153.0" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">0</text><text x="143.1" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y1</text><rect x="186.8" y="89.3" width="34" height="68.7" rx="3" fill="#1F6B3A"/><text x="203.8" y="84.3" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+25.77</text><text x="203.8" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y2</text><rect x="247.5" y="109.8" width="34" height="48.2" rx="3" fill="#1F6B3A"/><text x="264.5" y="104.8" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+18.08</text><text x="264.5" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y3</text><rect x="308.3" y="142.1" width="34" height="15.9" rx="3" fill="#1F6B3A"/><text x="325.3" y="137.1" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+5.96</text><text x="325.3" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y4</text><rect x="369.0" y="141.2" width="34" height="16.8" rx="3" fill="#1F6B3A"/><text x="386.0" y="136.2" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+6.29</text><text x="386.0" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y5</text><rect x="429.7" y="141.2" width="34" height="16.8" rx="3" fill="#1F6B3A"/><text x="446.7" y="136.2" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+6.29</text><text x="446.7" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y6</text><rect x="490.5" y="141.6" width="34" height="16.4" rx="3" fill="#1F6B3A"/><text x="507.5" y="136.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+6.14</text><text x="507.5" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y7</text><rect x="551.2" y="142.5" width="34" height="15.5" rx="3" fill="#1F6B3A"/><text x="568.2" y="137.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+5.80</text><text x="568.2" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y8</text><rect x="611.9" y="141.6" width="34" height="16.4" rx="3" fill="#1F6B3A"/><text x="628.9" y="136.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+6.14</text><text x="628.9" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y9</text><rect x="672.6" y="141.6" width="34" height="16.4" rx="3" fill="#1F6B3A"/><text x="689.6" y="136.6" text-anchor="middle" font-size="10.5" font-weight="700" fill="#23261F">+6.14</text><text x="689.6" y="313" text-anchor="middle" font-size="10.5" fill="#5c5748">Y10</text><polyline points="82.4,264.7 143.1,264.7 203.8,195.9 264.5,147.7 325.3,131.9 386.0,115.1 446.7,98.3 507.5,81.9 568.2,66.5 628.9,50.1 689.6,33.8" fill="none" stroke="#B08D4F" stroke-width="3" stroke-linejoin="round"/><circle cx="82.4" cy="264.7" r="3.4" fill="#B08D4F"/><circle cx="143.1" cy="264.7" r="3.4" fill="#B08D4F"/><circle cx="203.8" cy="195.9" r="3.4" fill="#B08D4F"/><circle cx="264.5" cy="147.7" r="3.4" fill="#B08D4F"/><circle cx="325.3" cy="131.9" r="3.4" fill="#B08D4F"/><circle cx="386.0" cy="115.1" r="3.4" fill="#B08D4F"/><circle cx="446.7" cy="98.3" r="3.4" fill="#B08D4F"/><circle cx="507.5" cy="81.9" r="3.4" fill="#B08D4F"/><circle cx="568.2" cy="66.5" r="3.4" fill="#B08D4F"/><circle cx="628.9" cy="50.1" r="3.4" fill="#B08D4F"/><circle cx="689.6" cy="33.8" r="3.4" fill="#B08D4F"/><text x="689.6" y="25.8" text-anchor="end" font-size="10.5" font-weight="700" fill="#B08D4F">+46.59</text><text x="272.5" y="139.7" font-size="10" font-weight="700" fill="#B08D4F"><tspan class="lth">คืนทุนครบ ~Y2.8</tspan><tspan class="len">payback ~Y2.8</tspan></text></svg></div>
+<details class="exp"><summary><span class="lth">แจกแจงรายปี — ตัวเลขแต่ละปีคืออะไร มาจากไหน</span><span class="len">Year-by-year breakdown — what each number is</span></summary><div class="xp"><span class="lth"><b>Y0 −40.0</b> — เงินลงทุนทั้งก้อน ณ closing เข้าบัญชีโครงการ (ทยอยเบิก 6 งวด pay-to-start)<br><b>Y1 0.0</b> — ปีก่อสร้าง + เปิดคอร์ต ธ.ค. (M5): มีรายได้ ~30M แต่ pool ถูกเก็บเป็น runway/สำรอง ไม่จ่ายปันผล — เงินสดต่ำสุดยังบวก ~+6.6M (≈6 เดือน OPEX)<br><b>Y2 +25.77</b> — เปิดเต็มปีที่ occupancy 90%: เงินแจกจ่าย 100% เข้ากลุ่มนักลงทุนตามสิทธิ Preferred<br><b>Y3 +18.08</b> — 14.23 ปิดคืนทุนครบ 40M (~ปี 2.8) + 3.85 เป็นส่วนแบ่ง 1/3 หลังคืนทุน (ทีมเริ่มรับ 2/3 = 7.69)<br><b>Y4–Y10 ~+5.8 ถึง +6.3/ปี</b> — โมเดลสมมติตลาดถอยเหลือ occupancy 70%: นักลงทุนรับ 1/3 ของ pool (~18M/ปี)<br><b>ผลกระทบรวม</b> — รับคืนทั้งหมด 86.6M บนทุน 40M (MOIC 2.16x) · สะสมเหนือทุน +46.59M ณ ปี 10 · ตัวแปรอ่อนไหวหลักคือ occupancy หลังปี 3</span><span class="len"><b>Y0 −40.0</b> — full capital called at closing into the project account (released in 6 pay-to-start tranches)<br><b>Y1 0.0</b> — build year + courts open Dec (M5): ~30M revenue booked but the pool is retained as runway/reserve, no distribution — cash bottoms at ~+6.6M (≈6-month cushion)<br><b>Y2 +25.77</b> — first full year at 90% occupancy: 100% of distributable cash goes to the investor block (Preferred priority)<br><b>Y3 +18.08</b> — 14.23 completes the 40M capital return (~Y2.8) + 3.85 is the 1/3 share after payback (the Team starts earning 2/3 = 7.69)<br><b>Y4–Y10 ~+5.8 to +6.3/yr</b> — the model steps occupancy down to a mature 70%: investors receive 1/3 of the pool (~18M/yr)<br><b>Overall impact</b> — 86.6M returned on 40M invested (2.16x MOIC) · +46.59M cumulative above capital by Y10 · the key sensitivity is occupancy after Y3</span></div></details>
+</section>
+
+<section>
+  <h2><span class="lth">รายได้มาจากไหน (Y4 คงตัว ≈ ฿39.8M/ปี)</span><span class="len">Where Revenue Comes From (Y4 mature ≈ ฿39.8M/yr)</span></h2>
+  <div class="stamp"><span class="lth">✓ VERIFIED — ตรวจทานโดย GM สโมสรชั้นนำในกรุงเทพฯ ที่ occupancy 99%</span><span class="len">✓ VERIFIED by the GM of a leading Bangkok club — 99% occupancy</span></div>
+  <div class="two">
+    <div class="bars"><div class="brow"><span class="blbl"><span class="lth">เทนนิส</span><span class="len">Tennis</span></span><div class="btrack"><div class="bfill" style="width:100.0%;background:#1F6B3A"></div></div><span class="bval">10.38</span></div><div class="brow"><span class="blbl"><span class="lth">ซิมูเลเตอร์</span><span class="len">Simulators</span></span><div class="btrack"><div class="bfill" style="width:88.8%;background:#1F6B3A"></div></div><span class="bval">9.22</span></div><div class="brow"><span class="blbl"><span class="lth">พิคเคิลบอล</span><span class="len">Pickleball</span></span><div class="btrack"><div class="bfill" style="width:83.5%;background:#1F6B3A"></div></div><span class="bval">8.67</span></div><div class="brow"><span class="blbl"><span class="lth">โค้ช+Hawk-eye</span><span class="len">Coach+Hawk-eye</span></span><div class="btrack"><div class="bfill" style="width:42.1%;background:#1F6B3A"></div></div><span class="bval">4.37</span></div><div class="brow"><span class="blbl"><span class="lth">อีเวนต์/ทัวร์</span><span class="len">Events</span></span><div class="btrack"><div class="bfill" style="width:24.7%;background:#1F6B3A"></div></div><span class="bval">2.56</span></div><div class="brow"><span class="blbl"><span class="lth">สมาชิก</span><span class="len">Memberships</span></span><div class="btrack"><div class="bfill" style="width:16.0%;background:#1F6B3A"></div></div><span class="bval">1.66</span></div><div class="brow"><span class="blbl"><span class="lth">ผู้เช่า</span><span class="len">Tenants</span></span><div class="btrack"><div class="bfill" style="width:15.7%;background:#1F6B3A"></div></div><span class="bval">1.63</span></div><div class="brow"><span class="blbl"><span class="lth">Junior</span><span class="len">Junior</span></span><div class="btrack"><div class="bfill" style="width:9.2%;background:#1F6B3A"></div></div><span class="bval">0.96</span></div><div class="brow"><span class="blbl"><span class="lth">สื่อ/สปอนเซอร์</span><span class="len">Media/Sponsor</span></span><div class="btrack"><div class="bfill" style="width:3.4%;background:#1F6B3A"></div></div><span class="bval">0.35</span></div></div>
+    <div>
+      <p class="lead"><span class="lth">สองเครื่องหลักคือ คอร์ต (เทนนิส + พิคเคิลบอล + ซิมูเลเตอร์) และรายได้เสริม (โค้ช/Hawk-eye, อีเวนต์, สมาชิก, ผู้เช่า) — 83% recurring · 89% court-driven</span><span class="len">Two engines: the courts (tennis + pickleball + simulators) and supporting income (coaching/Hawk-eye, events, memberships, tenants) — 83% recurring · 89% court-driven</span></p>
+      <ul class="clean">
+        <li><span class="lth">คอร์ตเล่น ~฿28M — เทนนิส 3 + พิคเคิลบอล 4 + ซิม 3 (ชั่วโมง × occupancy × ราคา)</span><span class="len">Court play ~฿28M — 3 tennis + 4 pickleball + 3 sims (hours × occupancy × rate)</span></li>
+        <li><span class="lth">โค้ช + Hawk-eye/สตรีมมิง ~฿4.4M · อีเวนต์/ทัวร์ ~฿2.6M</span><span class="len">Coaching + Hawk-eye/streaming ~฿4.4M · events/tournaments ~฿2.6M</span></li>
+        <li><span class="lth">สมาชิก ~฿1.7M · ผู้เช่า (ร้านอาหาร/โปรช็อป/wellness — เริ่ม Phase 2) ~฿1.6M</span><span class="len">Memberships ~฿1.7M · tenants (restaurant/pro shop/wellness — from Phase 2) ~฿1.6M</span></li>
+      </ul>
+    </div>
+  </div>
+<details class="exp"><summary><span class="lth">แจกแจง 9 สายรายได้ — คืออะไร ขับด้วยอะไร กระทบยังไง</span><span class="len">All 9 revenue streams — what, driver, impact</span></summary><div class="xp"><span class="lth"><b>เทนนิส 10.4</b> — 3 คอร์ต (clay · artificial grass · hard) คิดจากชั่วโมง peak/off-peak × ราคา × occupancy — ก้อนใหญ่สุด และ recurring<br><b>ซิมูเลเตอร์ 9.2</b> — 3 เครื่อง AI sim: ใช้พื้นที่น้อย ราคา/ชม.สูง — margin ต่อตารางเมตรดีที่สุด<br><b>พิคเคิลบอล 8.7</b> — 4 คอร์ต volume สูงตามกระแส ราคาต่อชม.ต่ำกว่าเทนนิสแต่หมุนเร็ว<br><b>โค้ช + Hawk-eye 4.4</b> — ส่วนแบ่งค่าสอน + ค่าใช้ระบบวิเคราะห์/รีเพลย์ — ขยับตามชั่วโมงเล่นจริง<br><b>อีเวนต์/ทัวร์นาเมนต์ 2.6</b> — one-time ตามปฏิทินแข่งและงาน corporate — สายที่ผันผวนที่สุด<br><b>สมาชิก 1.7</b> — ค่าสมาชิกรายปี ไม่ลดตาม court occupancy หลังปี 2<br><b>ผู้เช่า 1.6</b> — ร้านอาหาร/โปรช็อป/wellness จ่ายตาม sqm — เริ่ม Phase 2 (M7)<br><b>Junior academy 1.0</b> — หลักสูตรเยาวชน สร้าง pipeline สมาชิกระยะยาว<br><b>สื่อ/สปอนเซอร์ 0.4</b> — self-assessed ตั้งสมมติฐานต่ำไว้ก่อน<br><b>ผลกระทบ</b> — 89% ของรายได้ผูกกับคอร์ต: ตัวขับหลักคือ occupancy · ฉาก Conservative ตัดสายเสริมทั้งหมดแล้ว ทุนยังคืนครบ (1.20x)</span><span class="len"><b>Tennis 10.4</b> — 3 courts (clay · artificial grass · hard), hours peak/off-peak × rate × occupancy — the largest, recurring engine<br><b>Simulators 9.2</b> — 3 AI sims: small footprint, high hourly rate — best margin per sqm<br><b>Pickleball 8.7</b> — 4 courts riding the boom; lower hourly rate than tennis but high volume<br><b>Coaching + Hawk-eye 4.4</b> — coaching revenue share + analytics/replay fees — moves with hours actually played<br><b>Events / tournaments 2.6</b> — one-time, calendar-driven — the most variable stream<br><b>Memberships 1.7</b> — annual fees; does not fall with court occupancy after Y2<br><b>Tenants 1.6</b> — restaurant / pro shop / wellness paying per sqm — starts Phase 2 (M7)<br><b>Junior academy 1.0</b> — youth programme feeding the long-term member pipeline<br><b>Media / sponsors 0.4</b> — self-assessed, deliberately set low<br><b>Impact</b> — 89% of revenue is court-driven: occupancy is THE driver · the Conservative case strips every supporting stream and capital still returns (1.20x)</span></div></details>
+</section>
+
+<section>
+  <h2><span class="lth">ค่าใช้จ่ายเอาไปทำอะไร (Y4 ≈ ฿11.9M/ปี)</span><span class="len">Where Operating Expenses Go (Y4 ≈ ฿11.9M/yr)</span></h2>
+  <div class="stamp"><span class="lth">✓ VERIFIED — ตรวจทานโดย GM สโมสรชั้นนำในกรุงเทพฯ ที่ occupancy 99%</span><span class="len">✓ VERIFIED by the GM of a leading Bangkok club — 99% occupancy</span></div>
+  <div class="src"><span class="lth">EBITDA margin ~70% ปีคงตัว · ค่าเช่าขั้นบันได 240/300/360K ตามสัญญา · ไม่มีภาษีโรงเรือน · ค่าจดทะเบียนเช่า 1% จ่ายครั้งเดียว</span><span class="len">EBITDA margin ~70% at maturity · rent tiered 240/300/360K per lease · no property tax · one-time 1% lease registration fee</span></div>
+  <div class="two">
+    <div class="bars"><div class="brow"><span class="blbl"><span class="lth">ดำเนินการคอร์ต</span><span class="len">Court ops</span></span><div class="btrack"><div class="bfill" style="width:100.0%;background:#9C2B1B"></div></div><span class="bval">6.33</span></div><div class="brow"><span class="blbl"><span class="lth">อาคาร &amp; สถานที่</span><span class="len">Facility &amp; property</span></span><div class="btrack"><div class="bfill" style="width:43.8%;background:#9C2B1B"></div></div><span class="bval">2.77</span></div><div class="brow"><span class="blbl"><span class="lth">G&amp;A</span><span class="len">G&amp;A</span></span><div class="btrack"><div class="bfill" style="width:20.9%;background:#9C2B1B"></div></div><span class="bval">1.32</span></div><div class="brow"><span class="blbl"><span class="lth">การตลาด/ชุมชน</span><span class="len">BD/Marketing</span></span><div class="btrack"><div class="bfill" style="width:17.1%;background:#9C2B1B"></div></div><span class="bval">1.08</span></div><div class="brow"><span class="blbl"><span class="lth">เทคโนโลยี</span><span class="len">Technology</span></span><div class="btrack"><div class="bfill" style="width:6.3%;background:#9C2B1B"></div></div><span class="bval">0.4</span></div></div>
+    <div>
+      <ul class="clean">
+        <li><span class="lth">ดำเนินการคอร์ต ~฿6.3M — ค่าเช่า (ขั้นบันได), บำรุงพื้นผิว, พนักงาน, ไฟ/แอร์/น้ำ, ประกัน</span><span class="len">Court operations ~฿6.3M — tiered rent, surface maintenance, attendants, utilities, insurance</span></li>
+        <li><span class="lth">อาคาร &amp; สถานที่ ~฿2.8M — รปภ. 24 ชม., ทำความสะอาด, ซ่อมบำรุง</span><span class="len">Facility &amp; property ~฿2.8M — 24/7 security, cleaning, R&amp;M</span></li>
+        <li><span class="lth">G&amp;A ~฿1.3M · การตลาด/ชุมชน ~฿1.1M · เทคโนโลยี ~฿0.4M</span><span class="len">G&amp;A ~฿1.3M · BD/marketing ~฿1.1M · technology ~฿0.4M</span></li>
+      </ul>
+    </div>
+  </div>
+<details class="exp"><summary><span class="lth">แจกแจงค่าใช้จ่าย 5 หมวด — มีอะไรบ้าง fixed หรือแปรผัน</span><span class="len">All 5 expense groups — contents, fixed vs variable</span></summary><div class="xp"><span class="lth"><b>ดำเนินการคอร์ต 6.3</b> — ค่าเช่าขั้นบันได (ช่วง Y4–6 = 300K/เดือน) + บำรุงพื้นผิวคิดเป็น % ของ CapEx ต่อคอร์ต + พนักงานคอร์ต + ไฟ/แอร์/น้ำ + ประกัน — ส่วนหนึ่งแปรผันตามการใช้งาน<br><b>อาคาร &amp; สถานที่ 2.8</b> — รปภ. 24 ชม. ทำความสะอาด ซ่อมบำรุง — fixed<br><b>G&amp;A 1.3</b> — บัญชี แอดมิน สำนักงาน — fixed<br><b>การตลาด/ชุมชน 1.1</b> — ทีมแบรนด์ + คอมมูนิตี้ (ฉาก Court-only ตัดหมวดนี้ออก)<br><b>เทคโนโลยี 0.4</b> — cloud · CRM · สตรีมมิง SaaS<br><b>ผลกระทบ</b> — โครงสร้างส่วนใหญ่ fixed: ผ่านจุดคุ้มแล้ว margin ~70% · ค่าเช่าขึ้นบันได 240→300→360K คิดครบในโมเดล · ปีแรกมีค่าจดทะเบียนเช่า 1% (0.36M) ครั้งเดียว ไม่เกิดซ้ำ</span><span class="len"><b>Court operations 6.3</b> — tiered rent (300K/month in Y4–6) + surface maintenance as % of court CapEx + attendants + utilities + insurance — partly usage-driven<br><b>Facility &amp; property 2.8</b> — 24/7 security, cleaning, repairs &amp; maintenance — fixed<br><b>G&amp;A 1.3</b> — accounting, admin, office — fixed<br><b>BD / community 1.1</b> — brand + community team (removed entirely in the Court-only case)<br><b>Technology 0.4</b> — cloud · CRM · streaming SaaS<br><b>Impact</b> — a mostly-fixed base: past break-even the margin holds ~70% · tiered rent 240→300→360K fully modeled · Year 1 carries the one-time 1% lease-registration fee (0.36M), never repeated</span></div></details>
+</section>
+
+<section>
+  <h2><span class="lth">เงินลงทุนสร้าง — Total CapEx ฿35.26M (สร้าง 33.70 + transaction 1.56)</span><span class="len">Use of Funds — Total CapEx ฿35.26M (build 33.70 + transaction 1.56)</span></h2>
+  <div class="src"><span class="lth">Itemized โดยทีมวิศวกรรม Spectrum · ask ฿40M = CapEx 35.26M (รวม cost of fund) + ค่าธุรกรรม + runway — cash ต่ำสุด ~+6.6M ≈ 6 เดือน OPEX</span><span class="len">Itemized with Spectrum engineering · ฿40M ask = 35.26M CapEx (incl. cost of fund) + transaction costs + runway — cash bottoms at ~+6.6M ≈ a 6-month cushion</span></div>
+  <div class="two">
+    <div class="bars"><div class="brow"><span class="blbl"><span class="lth">อาคาร+พื้นที่เช่า</span><span class="len">Building + rentable</span></span><div class="btrack"><div class="bfill" style="width:100.0%;background:#B08D4F"></div></div><span class="bval">9.5</span></div><div class="brow"><span class="blbl"><span class="lth">คอร์ต+อุปกรณ์</span><span class="len">Courts + equipment</span></span><div class="btrack"><div class="bfill" style="width:87.4%;background:#B08D4F"></div></div><span class="bval">8.3</span></div><div class="brow"><span class="blbl"><span class="lth">โครงสร้างเหล็ก</span><span class="len">Steel structure</span></span><div class="btrack"><div class="bfill" style="width:57.9%;background:#B08D4F"></div></div><span class="bval">5.5</span></div><div class="brow"><span class="blbl"><span class="lth">วิศวกรรม MEP</span><span class="len">Engineering MEP</span></span><div class="btrack"><div class="bfill" style="width:36.8%;background:#B08D4F"></div></div><span class="bval">3.5</span></div><div class="brow"><span class="blbl"><span class="lth">Recovery</span><span class="len">Recovery</span></span><div class="btrack"><div class="bfill" style="width:26.3%;background:#B08D4F"></div></div><span class="bval">2.5</span></div><div class="brow"><span class="blbl"><span class="lth">Smart Court tech</span><span class="len">Smart Court tech</span></span><div class="btrack"><div class="bfill" style="width:12.6%;background:#B08D4F"></div></div><span class="bval">1.2</span></div><div class="brow"><span class="blbl"><span class="lth">Transaction costs 3%+1%</span><span class="len">Transaction costs 3%+1%</span></span><div class="btrack"><div class="bfill" style="width:16.4%;background:#B08D4F"></div></div><span class="bval">1.56</span></div><div class="brow"><span class="blbl"><span class="lth">Contingency</span><span class="len">Contingency</span></span><div class="btrack"><div class="bfill" style="width:10.5%;background:#B08D4F"></div></div><span class="bval">1</span></div><div class="brow"><span class="blbl"><span class="lth">Site prep</span><span class="len">Site prep</span></span><div class="btrack"><div class="bfill" style="width:10.5%;background:#B08D4F"></div></div><span class="bval">1</span></div><div class="brow"><span class="blbl"><span class="lth">Brand Identity</span><span class="len">Brand Identity</span></span><div class="btrack"><div class="bfill" style="width:2.6%;background:#B08D4F"></div></div><span class="bval">0.25</span></div><div class="brow"><span class="blbl"><span class="lth">Design</span><span class="len">Design</span></span><div class="btrack"><div class="bfill" style="width:5.3%;background:#B08D4F"></div></div><span class="bval">0.5</span></div><div class="brow"><span class="blbl"><span class="lth">Court flooring</span><span class="len">Court flooring</span></span><div class="btrack"><div class="bfill" style="width:4.7%;background:#B08D4F"></div></div><span class="bval">0.45</span></div></div>
+    <div>
+      <ul class="clean">
+        <li><span class="lth">เบิกจ่าย 6 งวดแบบ pay-to-start: Signing 2.0 → Design 2.5 → Shell 13.5 → Courts 12 → Phase-1 launch 3.5 → Pro shop/Restaurant 6.5</span><span class="len">Released in 6 pay-to-start tranches: Signing 2.0 → Design 2.5 → Shell 13.5 → Courts 12 → Phase-1 launch 3.5 → Pro shop/Restaurant 6.5</span></li>
+        <li><span class="lth"><b>ถ้างบก่อสร้างบานปลาย ใครจ่าย?</b> เกราะชั้นแรกคือสัญญา GMP (ราคาเพดานตายตัวกับผู้รับเหมา) — ส่วนที่เกินเพดาน ผู้รับเหมารับเอง · ถ้ายังเกิดส่วนเกินจริง มีบันได 3 ขั้น: <b>1)</b> ใช้งบเผื่อ (contingency + reserve ใน 40M) ก่อน <b>2)</b> หัวหน้าทีม (Lertsak) ให้บริษัทกู้แบบด้อยสิทธิ — ได้คืนหลังนักลงทุนรับทุนครบเท่านั้น <b>3)</b> นักลงทุนมี<i>สิทธิ์เลือก ไม่ใช่หน้าที่</i>: จะเติมทุน Preferred เพิ่มตามสัดส่วนบนเงื่อนไขเดิมก็ได้ (เงินที่เติมถูกบวกเข้ายอดที่ต้องคืนนักลงทุน 100% ก่อนใคร) หรือไม่เติมก็ได้โดยไม่เสียสิทธิ์เดิม — บริษัทจึงต้องไปหาแหล่งเงินภายนอก ซึ่งต้องผ่านความเห็นชอบนักลงทุนอีกชั้น · สรุป: นักลงทุนคือลำดับท้ายสุด ไม่ใช่คนแรกที่ควัก</span><span class="len"><b>If the build runs over budget, who pays?</b> The first shield is the GMP contract (fixed price ceiling with the contractor) — anything above the ceiling sits with the contractor · if a genuine overrun still occurs, a 3-step ladder applies: <b>1)</b> contingency + the reserve inside the 40M is used first <b>2)</b> the Team lead (Lertsak) lends to the company on a subordinated basis — repaid only after investors recover their capital in full <b>3)</b> investors have an <i>option, not an obligation</i>: they may top up pro-rata with additional Preferred capital on identical terms (the top-up is added to the amount repaid 100% first), or decline with no loss of existing rights — the company must then seek outside financing, which itself needs investor consent · bottom line: investors are the last resort, never the first pocket</span></li>
+        <li><span class="lth">สำรองทุน 15% ของ EBITDA สะสม ~44M ตลอด 10 ปี (refresh Y5/Y10)</span><span class="len">Capital reserve 15% of EBITDA accumulates ~44M over the hold (Y5/Y10 refreshes)</span></li>
+      </ul>
+    </div>
+  </div>
+<details class="exp"><summary><span class="lth">แจกแจง CapEx รายบรรทัด — คืออะไร จ่ายเมื่อไร</span><span class="len">CapEx line by line — what and when</span></summary><div class="xp"><span class="lth"><b>อาคาร + พื้นที่เช่า 9.5</b> — shell 350 sqm: ล็อกเกอร์/ห้องอาบน้ำ ครัว พื้นที่ผู้เช่า<br><b>คอร์ต + อุปกรณ์ 8.3</b> — 3 เทนนิส (clay/artificial/hard) + 4 พิคเคิลบอล + 3 ซิมูเลเตอร์<br><b>โครงสร้างเหล็ก 5.5</b> — truss + หลังคาคลุมคอร์ต<br><b>วิศวกรรม MEP 3.5</b> — ไฟฟ้า ประปา ระบายน้ำ ไฟส่องคอร์ต<br><b>Recovery 2.5</b> — ซาวน่า + cold plunge + ระเบียงไม้ริมน้ำ<br><b>Smart Court Tech 1.2</b> — เซนเซอร์/กล้อง/AI (กำลังยืนยันใบเสนอราคา)<br><b>Transaction costs 1.56</b> — placement fee 3% (1.20) + ค่าจดทะเบียนเช่า 1% ของสัญญา (0.36)<br><b>อื่นๆ 3.2</b> — Contingency 1.0 · Site prep 1.0 · Design 0.5 · พื้น+ตีเส้น 0.45 · Brand Identity 0.25<br><b>ผลกระทบ</b> — จ่ายครั้งเดียวช่วงก่อสร้าง เบิกตาม 6 งวด pay-to-start · ราคาหลักจาก Spectrum แบบ GMP → ความเสี่ยงบานปลายจำกัด · refresh ปี 5/10 ใช้เงินสำรอง 15% ของ EBITDA ไม่เรียกทุนเพิ่ม</span><span class="len"><b>Building + rentable space 9.5</b> — 350 sqm shell: lockers/showers, kitchen, tenant space<br><b>Courts + equipment 8.3</b> — 3 tennis (clay/artificial/hard) + 4 pickleball + 3 simulators<br><b>Steel structure 5.5</b> — truss + court roof<br><b>Engineering MEP 3.5</b> — electrical, plumbing, drainage, court lighting<br><b>Recovery 2.5</b> — sauna + cold plunge + riverside timber deck<br><b>Smart Court Tech 1.2</b> — sensors/cameras/AI (quote being confirmed)<br><b>Transaction costs 1.56</b> — 3% placement fee (1.20) + 1% lease-registration fee (0.36)<br><b>Others 3.2</b> — Contingency 1.0 · Site prep 1.0 · Design 0.5 · Flooring + lines 0.45 · Brand Identity 0.25<br><b>Impact</b> — one-time build spend, released across 6 pay-to-start tranches · priced with Spectrum on a GMP basis → overrun risk contained · Y5/Y10 refreshes funded from the 15%-of-EBITDA reserve, no new capital call</span></div></details>
+</section>
+
+<section>
+  <h2><span class="lth">ธรรมาภิบาล &amp; การคุ้มครอง</span><span class="len">Governance &amp; Protection</span></h2>
+  <p class="lead"><span class="lth">ทีมบริหารสโมสร · นักลงทุนถือสิทธิคุ้มครองเงินตัวเอง — เข้มสุดตอนทุนยังไม่คืน แล้วผ่อนลงเมื่อคืนครบ</span><span class="len">The team runs the club; the investors hold protective rights — tightest while capital is still out, stepping down once repaid</span></p>
+  <table class="govtbl">
+    <thead><tr>
+      <th style="width:20%"><span class="lth">มิติ</span><span class="len">Axis</span></th>
+      <th><span class="lth">① ก่อสร้าง<br><span>Build → 6 tranches</span></span><span class="len">① Build<br><span>6 pay-to-start tranches</span></span></th>
+      <th class="mid"><span class="lth">② ก่อนครบทุน<br><span>เปิด → คืนทุน (~Y2.8)</span></span><span class="len">② Before capital returned<br><span>Open → ~Y2.8</span></span></th>
+      <th><span class="lth">③ หลังครบทุน<br><span>→ Y10</span></span><span class="len">③ After capital returned<br><span>→ Y10</span></span></th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="dim"><span class="lth">💰 เงินปันผล — ใครได้</span><span class="len">💰 Distributable cash — who gets paid</span></td>
+        <td><span class="lth">ยังไม่มี (ก่อนมีรายได้)</span><span class="len">None yet (pre-revenue)</span></td>
+        <td class="mid"><span class="lth"><b>100% → นักลงทุน</b> (ทีมได้ 0)</span><span class="len"><b>100% → investors</b> (team gets 0)</span></td>
+        <td><span class="lth"><b>1/3 นักลงทุน : 2/3 ทีม</b></span><span class="len"><b>1/3 investors : 2/3 Team</b></span></td>
+      </tr>
+      <tr>
+        <td class="dim"><span class="lth">🎾 ทิศทาง — บริหารประจำวัน</span><span class="len">🎾 Direction — day-to-day</span></td>
+        <td><span class="lth">ทีมสร้าง · นักลงทุนอนุมัติแต่ละงวด (เงียบเกิน 10 วันทำการ = อนุมัติ)</span><span class="len">Team builds · investors sign off each tranche (silence beyond 10 business days = deemed approved)</span></td>
+        <td class="mid"><span class="lth">ทีม</span><span class="len">Team</span></td>
+        <td><span class="lth">ทีม</span><span class="len">Team</span></td>
+      </tr>
+      <tr>
+        <td class="dim"><span class="lth">🛡️ Veto — สิทธิคุ้มครองเรื่องใหญ่</span><span class="len">🛡️ Veto — protective power</span></td>
+        <td><span class="lth">อนุมัติงวด + reserved matters</span><span class="len">Tranche sign-off + reserved matters</span></td>
+        <td class="mid"><span class="lth"><b>นักลงทุน — เข้มสุด</b> (ทุนเสี่ยงสูงสุด)</span><span class="len"><b>Investors — tightest</b> (capital most at risk)</span></td>
+        <td><span class="lth">คง veto เรื่องใหญ่ (หนี้ · ขายสินทรัพย์ · related-party · เปลี่ยนดีล) · เรื่องเล็กผ่อน</span><span class="len">Core vetoes remain (debt · asset sale · related-party · deal changes); minor items relax</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note"><span class="lth">บอร์ด 2/1 (ฝั่งทีม 2 : ผู้แทนนักลงทุน 1) · นักลงทุน 4 คนโหวตภายในเสียงข้างมาก พูดผ่านผู้แทนคนเดียว · No-Delay Protocol: เรื่องเร่งด่วนตอบใน 5 วันทำการ ไม่งั้นทีมเดินหน้าตามงบ/แผนที่อนุมัติได้</span><span class="len">Lean 2/1 board (Team 2 : one Investor Representative) · the 4 investors vote internally by majority and speak with one voice · No-Delay Protocol: time-critical items answered within 5 business days, else the Team may proceed within the approved budget &amp; plan</span></p>
+</section>
+
+<section>
+  <h2><span class="lth">ความเสี่ยง &amp; การรับมือ</span><span class="len">Key Risks &amp; Mitigants</span></h2>
+  <table class="risk">
+    <tr><th><span class="lth">ความเสี่ยง</span><span class="len">Risk</span></th><th><span class="lth">การรับมือ</span><span class="len">Mitigant</span></th></tr>
+    <tr><td><span class="lth">Occupancy ต่ำกว่าคาด</span><span class="len">Occupancy below plan</span></td><td><span class="lth">ฉาก Conservative ยังคืนทุน (1.20x) · โมเดลใช้ 70% mature ต่ำกว่าตลาด ~90%</span><span class="len">Conservative floor still returns capital (1.20x) · model uses 70% mature vs ~90% market</span></td></tr>
+    <tr><td><span class="lth">ต้นทุนสร้างบานปลาย</span><span class="len">Build cost overrun</span></td><td><span class="lth">สัญญา GMP (เกิน GMP ผู้รับเหมารับ) + reallocate 10% + overrun waterfall + เบิกจ่ายเป็นงวด</span><span class="len">GMP turnkey contract (overrun above GMP sits with contractor) + 10% reallocation + defined overrun waterfall + tranche gates</span></td></tr>
+    <tr><td><span class="lth">สัญญาเช่าต่อไม่ได้</span><span class="len">Lease not renewable</span></td><td><span class="lth">ไม่คิด exit/terminal value เลย — ผลตอบแทนจากปันผล 10 ปีล้วน (ต่อสัญญาได้ = upside ฟรี)</span><span class="len">No exit/terminal value priced — returns rest on distributions alone (renewal = free upside)</span></td></tr>
+    <tr><td><span class="lth">ทีม/การบริหาร</span><span class="len">Team / execution</span></td><td><span class="lth">ทีมมือโปร + เงินเดือนแปลงเป็น sweat ที่ริบได้ · key-person / step-in right ของนักลงทุน</span><span class="len">Proven operators + salaries converted to forfeitable sweat · investor key-person / step-in right</span></td></tr>
+  </table>
+</section>
+
+<section style="border-bottom:0">
+  <h2><span class="lth">ขั้นต่อไป</span><span class="len">Next Steps</span></h2>
+  <div class="steps">
+    <div class="step"><h4><span class="lth">Qualify — NDA + Proof of Funds</span><span class="len">Qualify — NDA + Proof of Funds</span></h4><p><span class="lth">เซ็น NDA + หลักฐานธนาคาร ≥ ฿10M/คน → เราแชร์โมเดล + term sheet ฉบับเต็ม · เดินหน้าเฉพาะพาร์ทเนอร์ที่พร้อมจริง</span><span class="len">Sign the NDA + show bank proof of ≥ ฿10M per investor → we share the full model + term sheet · we proceed only with qualified partners</span></p></div>
+    <div class="step"><h4>Site visit</h4><p><span class="lth">เยี่ยมชมที่ตั้งริมแม่น้ำ</span><span class="len">Visit the riverside site</span></p></div>
+    <div class="step"><h4><span class="lth">Legal &amp; terms</span><span class="len">Legal &amp; terms</span></h4><p><span class="lth">Shareholders' Agreement · ที่ปรึกษากฎหมายไทย</span><span class="len">Shareholders' Agreement · Thai counsel</span></p></div>
+    <div class="step"><h4><span class="lth">Close &amp; fund</span><span class="len">Close &amp; fund</span></h4><p><span class="lth">เรียกทุนเต็มก้อน 40M · เบิกจ่าย 6 งวด pay-to-start · เปิดคอร์ต ธ.ค. 2026</span><span class="len">Full 40M called at close · released in 6 pay-to-start tranches · courts open Dec 2026</span></p></div>
+  </div>
+</section>
+</div>
+
+<div class="foot"><div class="wrap">
+  <b>East Venice Tennis &amp; Pickleball Club</b> · Lertsak (Yord) · lertsak@gmail.com · Bangkok<br>
+  <span><span class="lth">ประมาณการโดย Operating Partner (อดีต GM สโมสรชั้นนำ) · ตัวเลขจากโมเดล v126 เป็นประมาณการ ไม่ใช่การรับประกัน · ไม่คิดมูลค่า exit/terminal · ขึ้นกับสัญญาฉบับสมบูรณ์และที่ปรึกษากฎหมาย/ภาษีไทย · Preferred structure · Pack 3 · docs v29 · 2026-07-02</span><span class="len">Estimates assessed by the Operating Partner (former leading-club GM) · figures from the v126 model are projections, not guarantees · no exit/terminal value assumed · subject to definitive agreements and Thai legal/tax counsel · Preferred structure · Pack 3 · docs v29 · 2026-07-02</span></span>
+</div></div>
+
+
+</body>
+</html>
